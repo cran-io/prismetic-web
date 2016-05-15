@@ -29,3 +29,15 @@ body {
 .prismetic-img {
   width: 35px;
 }
+
+.input-xs {
+    height: 35px;
+    padding: 7px 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.to {
+  font-size: 12px;
+}
