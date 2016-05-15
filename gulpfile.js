@@ -14,6 +14,7 @@ var files = {
     angularMain: 'src/js/*.js',
     angularDirectives: 'src/js/directives/*.js',
     angularControllers: 'src/js/controllers/*.js',
+    angularServices: 'src/js/services/*.js',
     styles: 'src/css/*.css',
     images: 'src/img/**',
     templates: 'src/templates/*.html',
@@ -24,7 +25,7 @@ var files = {
 
 gulp.task('inject-libs', function() {
   gulp.src(files.index)
-    .pipe(inject(gulp.src([files.angularMain, files.angularDirectives, files.angularControllers, files.styles, files.bowerFonts], { read: false }), { relative: true }))
+    .pipe(inject(gulp.src([files.angularMain, files.angularServices, files.angularDirectives, files.angularControllers, files.styles, files.bowerFonts], { read: false }), { relative: true }))
     .pipe(wiredep())
     .pipe(gulp.dest('src'));
 });
@@ -34,6 +35,7 @@ gulp.task('browser-sync', ['inject-libs'], function() {
     files.angularMain, 
     files.angularDirectives, 
     files.angularControllers, 
+    files.angularServices,
     files.styles,
     files.templates,
     files.index
