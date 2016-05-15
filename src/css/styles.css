@@ -1,0 +1,22 @@
+/* CUSTOM PRISMETIC STYLES */
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  src: local('Ubuntu'), url(http://example.com/fonts/ubuntu.woff) format('woff');
+}
+
+body {
+  font-family: 'Ubuntu';
+}
+
+.prismetic-navbar,
+.prismetic-navbar .sidebar a {
+  background-color: #005664!important;
+}
+
+.prismetic-navbar .sidebar a:hover {
+  background-color:#00505c!important;
+}

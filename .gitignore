@@ -1,0 +1,8 @@
+# Dist Directory
+/dist
+
+# Node modules
+/node_modules
+
+# Bower components
+/src/components
