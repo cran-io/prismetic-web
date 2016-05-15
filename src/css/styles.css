@@ -20,3 +20,12 @@ body {
 .prismetic-navbar .sidebar a:hover {
   background-color:#00505c!important;
 }
+
+.sidebar .sidebar-main .prismetic-logo {
+  float: right;
+  padding-right: 20px;
+}
+
+.prismetic-img {
+  width: 35px;
+}

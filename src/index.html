@@ -38,6 +38,7 @@
   <!-- inject:js -->
   <script src="js/module.js"></script>
   <script src="js/routes.js"></script>
+  <script src="js/services/api-requests.js"></script>
   <script src="js/directives/loading.js"></script>
   <script src="js/directives/widget-body.js"></script>
   <script src="js/directives/widget-footer.js"></script>
@@ -57,7 +58,10 @@
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
             Prismetic
-            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+            <span class="prismetic-logo">
+              <img src="img/prismetic.png" alt="Prismetic" class="prismetic-img">
+            </span>
+            
           </a>
         </li>
         <li class="sidebar-title"><span>Secciones</span></li>
