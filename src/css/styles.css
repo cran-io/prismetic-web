@@ -38,12 +38,18 @@ body {
     border-radius: 3px;
 }
 
-.to {
-  font-size: 12px;
-}
 
 .uib-datepicker .text-info,
 .btn:not(.btn-raised).btn-info, 
 .input-group-btn .btn:not(.btn-raised) .btn-info {
   color:#FFFFFF;
+}
+
+.last, .to, .from {
+  font-size: 11px;
+  color: grey;
+}
+
+.left-bordered {
+  border-left: 1px solid #cccccc
 }

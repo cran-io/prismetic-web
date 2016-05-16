@@ -1,5 +1,12 @@
 angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', function($scope, $cookieStore, apiRequest) {
+  //navbar management.
   var mobileView = 992;
+ 
+  //datepicker variables
+  $scope.format = 'dd/MM/yyyy';
+  $scope.begPopup = { opened: false };
+  $scope.endPopup = { opened: false };
+  $scope.date = {};
 
   $scope.getWidth = function() {
       return window.innerWidth;
@@ -27,14 +34,14 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   };
 
   $scope.today = function() {
-    $scope.begDate = new Date();
-    $scope.endDate = new Date();
+    $scope.date.begDate = new Date();
+    $scope.date.endDate = new Date();
   };
 
   $scope.today();
 
   $scope.dateOptions = {
-    showWeeks: false,
+    showWeeks: false
   };
 
   $scope.open = function(popup) {
@@ -42,17 +49,14 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     else $scope.endPopup.opened = true;
   }
 
-  $scope.setDate = function(year, month, day) {
-    $scope.dt = new Date(year, month, day);
+  $scope.setPeriod = function(period) {
+    $scope.period  = period;
+    $scope.date.begDate = new Date(moment().subtract(1, period).format());
+    $scope.date.endDate = new Date(moment().format());
   };
 
-  $scope.format = 'dd/MM/yyyy';
+  $scope.unsetButtons = function() {
+    $scope.period = null;
+  }
 
-  $scope.begPopup = {
-    opened: false
-  };
-
-  $scope.endPopup = {
-    opened: false
-  };
 }]);
