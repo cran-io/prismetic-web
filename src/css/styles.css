@@ -41,3 +41,9 @@ body {
 .to {
   font-size: 12px;
 }
+
+.uib-datepicker .text-info,
+.btn:not(.btn-raised).btn-info, 
+.input-group-btn .btn:not(.btn-raised) .btn-info {
+  color:#FFFFFF;
+}

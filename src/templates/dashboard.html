@@ -98,24 +98,24 @@
                   <input type="text" 
                          class="form-control input-xs" 
                          uib-datepicker-popup="{{format}}" 
-                         ng-model="dt" 
-                         is-open="popup1.opened" 
+                         ng-model="begDate" 
+                         is-open="begPopup.opened" 
                          datepicker-options="dateOptions" 
-                         ng-required="true" 
-                         close-text="Close" 
-                         ng-click="open1()"
+                         close-text="Cerrar" 
+                         ng-click="open('beginning')"
                          alt-input-formats="altInputFormats" />
                 </span>
                 <span class="to"> a: </span>
                 <span class="input-group">
                   <input type="text" 
                          class="form-control input-xs" 
-                         uib-datepicker-popup ng-model="dt" 
-                         is-open="popup2.opened" 
+                         uib-datepicker-popup="{{format}}" 
+                         ng-model="endDate" 
+                         is-open="endPopup.opened" 
                          datepicker-options="dateOptions" 
-                         ng-required="true" 
-                          ng-click="open2()"
-                         close-text="Close" />
+                         close-text="Cerrar" 
+                         ng-click="open('end')"
+                         alt-input-formats="altInputFormats" />
                 </span>
               </div>
             </div>
