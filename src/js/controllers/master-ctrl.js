@@ -8,6 +8,59 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   $scope.endPopup = { opened: false };
   $scope.date = {};
 
+  $scope.devices = [];
+  $scope.sensors = [];
+
+  (function() {
+    apiRequest
+      .getDevices()
+      .then(function(response) {
+        $scope.devices = response;
+        $scope.devices.map(function(device, index) {
+          device.index    = index;
+          device.selected = index == 0;
+        });
+        if ($scope.devices.length) {
+          deviceID = $scope.devices[0]._id;
+          getSensors(deviceID);
+        }
+      });
+  })();
+  
+  $scope.selectDevice = function(index) {
+    $scope.devices.forEach(function(device) {
+      if (device.index == index) {
+        device.selected = true;
+        getSensors(device._id);
+      } else {
+        device.selected = false;
+      }
+    });
+  };
+
+  $scope.selectSensor = function(index) {
+    $scope.sensors.forEach(function(sensor) {
+      if (sensor.index == index) {
+        sensor.selected = true;
+        //manage here sensorData requests
+      } else {
+        sensor.selected = false;
+      }
+    });
+  };
+
+  var getSensors = function(deviceID) {
+    apiRequest
+      .getSensors(deviceID)
+      .then(function(response) {
+        $scope.sensors = response;
+        $scope.sensors.map(function(sensor, index) {
+          sensor.index = index;
+          sensor.selected = index == 0;
+        });
+      });
+  };
+
   $scope.getWidth = function() {
       return window.innerWidth;
   };

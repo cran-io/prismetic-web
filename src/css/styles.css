@@ -53,3 +53,33 @@ body {
 .left-bordered {
   border-left: 1px solid #cccccc
 }
+
+.devices a,
+.sensors a {
+  text-decoration:none;
+}
+
+.rounded-icon {
+  background: #30426a;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+ .rounded-icon i {
+  line-height: 66px;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.panel-prismetic.active {
+  background-color: #7ee7c9;
+  color: #ffffff;
+}
+
+.panel-prismetic .title {
+  font-size:28px;
+}
