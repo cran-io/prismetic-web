@@ -28,6 +28,7 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "~3.3.4",
     "font-awesome": "~4.5.0",
-    "bootstrap-material-design": "^0.5.9"
+    "bootstrap-material-design": "^0.5.9",
+    "moment": "^2.13.0"
   }
 }
