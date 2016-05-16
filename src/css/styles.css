@@ -75,9 +75,15 @@ body {
   font-size: 30px;
 }
 
+.panel-prismetic {
+  border-radius: 9px;
+}
+
 .panel-prismetic.active {
   background-color: #7ee7c9;
   color: #ffffff;
+  background: #4ABCBC;
+  box-shadow: inset 0px 0px 9px 0px rgba(0,0,0,0.15);
 }
 
 .panel-prismetic .title {

@@ -11,6 +11,8 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   $scope.devices = [];
   $scope.sensors = [];
 
+  var sensorID, deviceID;
+  
   (function() {
     apiRequest
       .getDevices()
@@ -42,11 +44,20 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     $scope.sensors.forEach(function(sensor) {
       if (sensor.index == index) {
         sensor.selected = true;
-        //manage here sensorData requests
+        sensorID = sensor._id;
+        getSensorData(deviceID, sensorID);
       } else {
         sensor.selected = false;
       }
     });
+  };
+
+  var getSensorData = function(deviceID, sensorID) {
+    apiRequest
+      .getSensorData(deviceID, sensorID)
+      .then(function(response) {
+        console.log(response);
+      });
   };
 
   var getSensors = function(deviceID) {

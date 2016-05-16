@@ -27,6 +27,20 @@ angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q
         deferred.resolve(response);
       });
       return deferred.promise;
+    },
+
+    getSensorData: function(deviceID, sensorID) {
+      var deferred = $q.defer();
+      $http({
+        method: 'GET',
+        url: apiUrl + '/devices/' + deviceID + '/sensors/' + sensorID + '/sensorData',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      }).success(function(response) {
+        deferred.resolve(response);
+      });
+      return deferred.promise;
     }
   }
 }]);
