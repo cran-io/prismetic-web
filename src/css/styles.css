@@ -87,5 +87,53 @@ body {
 }
 
 .panel-prismetic .title {
-  font-size:28px;
+  font-size: 28px;
 }
+
+.panel-prismetic .prismetic-rounded i{
+  font-size: 40px;
+  margin-right: 20px;
+}
+
+.panel-prismetic .sensor-content {
+  text-align: center;
+}
+
+.panel-prismetic .sensor-content {
+  font-size: 20px;
+}
+
+.panel-prismetic.panel-sm {
+  margin: auto;
+}
+
+@media(min-width:1200px) {
+  .panel-prismetic.panel-sm {
+    width: 37%;
+    margin: auto;
+  }
+}
+
+.sensor.description {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 9px;
+  text-align: center;
+}
+
+.sensor.description .title {
+ font-weight: bold;
+}
+
+.sensor.description .status {
+
+}
+
+.color-green {
+  color: #7ee7c9;
+}
+
+.color-red {
+  color: #F44336;
+}
+
