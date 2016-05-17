@@ -1,5 +1,5 @@
 angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q) {
-  var apiUrl = 'http://localhost:8080/api';
+  var apiUrl = 'http://192.168.1.56:8080/api';
   return {
     getDevices: function() {
       var deferred = $q.defer();
@@ -29,11 +29,12 @@ angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q
       return deferred.promise;
     },
 
-    getSensorData: function(deviceID, sensorID) {
+    getSensorData: function(deviceID, sensorID, params) {
       var deferred = $q.defer();
       $http({
         method: 'GET',
-        url: apiUrl + '/devices/' + deviceID + '/sensors/' + sensorID + '/sensorData',
+        params: params,
+        url: apiUrl + '/devices/' + deviceID + '/sensors/' + sensorID + '/sensors_data',
         headers: {
           'Content-type': 'application/json'
         }

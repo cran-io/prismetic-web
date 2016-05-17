@@ -1,4 +1,4 @@
-angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', function($scope, $cookieStore, apiRequest) {
+angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', function($scope, $cookieStore, apiRequest, highCharts) {
   //navbar management.
   var mobileView = 992;
  
@@ -10,6 +10,7 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
 
   $scope.devices = [];
   $scope.sensors = [];
+  $scope.sensorData = [];
 
   var sensorID, deviceID;
   
@@ -53,10 +54,19 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   };
 
   var getSensorData = function(deviceID, sensorID) {
+    var params = {
+      dateFrom: $scope.date.begDate,
+      dateTo: $scope.date.endDate,
+      interval: 60
+    };
     apiRequest
-      .getSensorData(deviceID, sensorID)
+      .getSensorData(deviceID, sensorID, params)
       .then(function(response) {
-        console.log(response);
+        $scope.sensorData = response.map(function(dot){
+          return [new Date(dot.date), dot.average];
+        });
+        if ($scope.sensorData.length) highCharts.lineChart('chart',  $scope.sensorData);
+        else highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.'); 
       });
   };
 
@@ -69,11 +79,13 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
           sensor.index = index;
           sensor.selected = index == 0;
         });
+        sensorID = $scope.sensors[0]._id;
+        getSensorData(deviceID, $scope.sensors[0]._id);
       });
   };
 
   $scope.getWidth = function() {
-      return window.innerWidth;
+    return window.innerWidth;
   };
 
   $scope.$watch($scope.getWidth, function(newValue, oldValue) {
@@ -117,9 +129,13 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     $scope.period  = period;
     $scope.date.begDate = new Date(moment().subtract(1, period).format());
     $scope.date.endDate = new Date(moment().format());
+    getSensorData(deviceID, sensorID);
   };
 
-  $scope.unsetButtons = function() {
+  $scope.changeDate = function(type, date) {
+    console.log(type, date);
+    console.log(deviceID, sensorID);
+    getSensorData(deviceID, sensorID);
     $scope.period = null;
   }
 
