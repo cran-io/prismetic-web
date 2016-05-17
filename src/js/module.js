@@ -1,1 +1,2 @@
-angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies']);
+angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io']);
+  

@@ -1,4 +1,4 @@
-angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', function($scope, $cookieStore, apiRequest, highCharts) {
+angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', 'sockets', function($scope, $cookieStore, apiRequest, highCharts, sockets) {
   //navbar management.
   var mobileView = 992;
  
@@ -65,8 +65,7 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
         $scope.sensorData = response.map(function(dot){
           return [new Date(dot.date), dot.average];
         });
-        if ($scope.sensorData.length) highCharts.lineChart('chart',  $scope.sensorData);
-        else highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.'); 
+        sensorDataChart = $scope.sensorData.length ? highCharts.lineChart('chart',  $scope.sensorData) : highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.');
       });
   };
 
@@ -137,6 +136,9 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     console.log(deviceID, sensorID);
     getSensorData(deviceID, sensorID);
     $scope.period = null;
-  }
+  };
+
+  sockets.on('data', function(data) {
+  });
 
 }]);
