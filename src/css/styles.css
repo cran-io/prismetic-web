@@ -137,3 +137,6 @@ body {
   color: #F44336;
 }
 
+.panel-body .sensors {
+  margin-top: 20px;
+}

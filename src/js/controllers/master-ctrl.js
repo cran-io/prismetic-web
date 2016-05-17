@@ -63,7 +63,7 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
       .getSensorData(deviceID, sensorID, params)
       .then(function(response) {
         $scope.sensorData = response.map(function(dot){
-          return [new Date(dot.date), dot.average];
+          return [new Date(dot.date).getTime(), dot.average];
         });
         sensorDataChart = $scope.sensorData.length ? highCharts.lineChart('chart',  $scope.sensorData) : highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.');
       });
@@ -80,6 +80,9 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
         });
         sensorID = $scope.sensors[0]._id;
         getSensorData(deviceID, $scope.sensors[0]._id);
+        sockets.on(sensorID, function(data) {
+          console.log(data);
+        });
       });
   };
 
@@ -109,8 +112,8 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   };
 
   $scope.today = function() {
-    $scope.date.begDate = new Date();
-    $scope.date.endDate = new Date();
+    $scope.date.begDate = moment().startOf('day')._d;
+    $scope.date.endDate = moment()._d;
   };
 
   $scope.today();
@@ -127,20 +130,15 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   $scope.setPeriod = function(period) {
     $scope.period  = period;
     var subs = period == 'days' ? 0 : 1;
-    $scope.date.begDate = new Date(moment().subtract(subs, period).format());
-    $scope.date.endDate = new Date(moment().format());
+    $scope.date.begDate = moment().subtract(subs, period).startOf('day')._d;
+    $scope.date.endDate = moment()._d;
     getSensorData(deviceID, sensorID);
   };
 
   $scope.changeDate = function(type, date) {
-    console.log(type, date);
-    console.log(deviceID, sensorID);
     getSensorData(deviceID, sensorID);
     $scope.period = null;
   };
 
-  sockets.on('data', function(data) {
-    
-  });
 
 }]);

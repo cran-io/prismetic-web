@@ -18,10 +18,17 @@ angular.module('RDash')
                   'Clickeá y arrastrá en el gráfico para aumentar el zoom' :
                   'Pinch the chart to zoom in'
           },
+          tooltip: {
+            formatter: function() {
+                format = '<b>Personas: ' + this.y + '</b><br>';
+                format += moment(this.x).format('HH:mm') + ' hs';
+                return format;
+            }
+          },
           xAxis: {
               labels: {
-                formatter: function() {
-                    return this.value;
+                formatter: function(foo) {
+                    return moment(this.value).format('H:m:s');
                 }
               },
               title: {

@@ -4,5 +4,5 @@ angular.module('RDash').factory('sockets', function (socketFactory) {
     ioSocket: myIoSocket
   });
 
-  return socketFactory();
+  return mySocket;
 });
