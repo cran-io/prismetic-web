@@ -64,13 +64,12 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     apiRequest
       .getSensorData(deviceID, sensorID, params)
       .then(function(response) {
-        console.log(response);
+        $scope.rawSensorData = response;
         $scope.sensorData = response.data.map(function(dot){
           return [new Date(dot.date).getTime(), dot.average];
         });
         $scope.enter = response.metadata.enter;
         $scope.exit  = response.metadata.exit;
-        console.log($scope.exit, $scope.enter);
         sensorDataChart = $scope.sensorData.length ? highCharts.lineChart('chart',  $scope.sensorData) : highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.');
       });
   };
@@ -86,8 +85,23 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
         });
         sensorID = $scope.sensors[0]._id;
         getSensorData(deviceID, $scope.sensors[0]._id);
-        sockets.on(sensorID, function(data) {
-          console.log(data);
+        $scope.sensors.forEach(function(sensor) {
+          sockets.on(sensor._id, function(dot) {
+            if (sensorDataChart) {
+              var lastIndex  = sensorDataChart.series[0].data.length - 1;
+              var lastPoint  = sensorDataChart.series[0].data[lastIndex];
+              $scope.enter  += Number(dot.enter);
+              var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
+              if (moment(dot.sentAt) < lastPointHour) { // for example: last point is at 14.30 and y recieved a point at 14.47. its not greater than 1800 so I adjust the last point
+                var scopedData   = $scope.rawSensorData.data[$scope.rawSensorData.data.length - 1];
+                var updatedPoint = ((scopedData.count + dot.count) / (scopedData.cant + 1)).toFixed(1);
+                lastPoint.update({ y: Number(updatedPoint) });
+              } else {
+                var newHour = moment(dot.sentAt).startOf('hour').add(30, 'minutes');
+                sensorDataChart.series[0].addPoint({x: newHour, y: dot.count});
+              }
+            }
+          });
         });
       });
   };
