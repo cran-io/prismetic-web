@@ -36,6 +36,7 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     $scope.devices.forEach(function(device) {
       if (device.index == index) {
         device.selected = true;
+        deviceID = device._id;
         getSensors(device._id);
       } else {
         device.selected = false;
