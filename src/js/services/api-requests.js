@@ -1,5 +1,6 @@
 angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q) {
   var apiUrl = 'http://prismetic.cran.io:8080/api';
+  return {
     getDevices: function() {
       var deferred = $q.defer();
       $http({
