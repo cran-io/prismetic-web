@@ -1,0 +1,19 @@
+{
+  "apps" : [{
+    "name": "Prismetic Web",
+    "env": {
+      "COMMON_ENV_VAR": "true"
+      },
+      }],
+      "deploy" : {
+        "production" : {
+          "user" : "root",
+          "host" : "45.55.222.131",
+          "repo" : "git@github.com:cran-io/prismetic-web.git",
+          "ref"  : "origin/master",
+          "path" : "/var/www/prismetic-web",
+          "post-deploy" : "bower --allow-root install"
+        }
+      }
+    }
+
