@@ -38,7 +38,6 @@ body {
     border-radius: 3px;
 }
 
-
 .uib-datepicker .text-info,
 .btn:not(.btn-raised).btn-info, 
 .input-group-btn .btn:not(.btn-raised) .btn-info {
@@ -164,4 +163,8 @@ body {
 .metric-label {
   font-size:12px;
   color:grey;
+}
+
+.top-margened {
+  margin-top:15px;
 }
