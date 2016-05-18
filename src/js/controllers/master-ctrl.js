@@ -136,8 +136,8 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   $scope.setPeriod = function(period) {
     $scope.period  = period;
     var subs = period == 'days' ? 0 : 1;
-    $scope.date.begDate = moment().subtract(subs, period).startOf('day')._d;
-    $scope.date.endDate = moment()._d;
+    $scope.date.begDate = moment($scope.date.endDate).subtract(subs, period).startOf('day')._d;
+    $scope.date.endDate = moment($scope.date.endDate)._d;
     getSensorData(deviceID, sensorID);
   };
 
