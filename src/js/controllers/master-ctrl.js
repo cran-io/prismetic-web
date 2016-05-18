@@ -11,6 +11,8 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
   $scope.devices = [];
   $scope.sensors = [];
   $scope.sensorData = [];
+  $scope.enter = 0;
+  $scope.exit = 0;
 
   var sensorID, deviceID;
   
@@ -62,9 +64,13 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     apiRequest
       .getSensorData(deviceID, sensorID, params)
       .then(function(response) {
-        $scope.sensorData = response.map(function(dot){
+        console.log(response);
+        $scope.sensorData = response.data.map(function(dot){
           return [new Date(dot.date).getTime(), dot.average];
         });
+        $scope.enter = response.metadata.enter;
+        $scope.exit  = response.metadata.exit;
+        console.log($scope.exit, $scope.enter);
         sensorDataChart = $scope.sensorData.length ? highCharts.lineChart('chart',  $scope.sensorData) : highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.');
       });
   };
@@ -139,6 +145,5 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
     getSensorData(deviceID, sensorID);
     $scope.period = null;
   };
-
 
 }]);

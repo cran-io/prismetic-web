@@ -140,3 +140,30 @@ body {
 .panel-body .sensors {
   margin-top: 20px;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.icon-full {
+  padding:10px;
+  border-radius:7px;
+  color:white;
+}
+
+.icon-red {
+  background-color:#f0596b;
+}
+
+.icon-big {
+  font-size:30px;
+}
+
+.metric-number {
+   margin-left:5px;font-size:23px;font-weight:bold; 
+}
+
+.metric-label {
+  font-size:12px;
+  color:grey;
+}
