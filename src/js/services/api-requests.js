@@ -1,5 +1,5 @@
 angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q) {
-  var apiUrl = 'http://192.168.1.56:8080/api';
+  var apiUrl = 'http://localhost:8080/api';
   return {
     getDevices: function() {
       var deferred = $q.defer();
