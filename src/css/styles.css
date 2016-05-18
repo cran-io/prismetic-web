@@ -42,7 +42,7 @@ body {
 .uib-datepicker .text-info,
 .btn:not(.btn-raised).btn-info, 
 .input-group-btn .btn:not(.btn-raised) .btn-info {
-  color:#FFFFFF;
+  color:#000000;
 }
 
 .last, .to, .from {
