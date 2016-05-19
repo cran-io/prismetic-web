@@ -22,7 +22,8 @@ var files = {
     templates: 'src/templates/*.html',
     index: 'src/index.html',
     home:  'src/home.html',
-    bowerFonts: 'src/components/font-awesome/**/*.*',
+    fontAwesomeStyles: 'src/components/font-awesome/**/*.css',
+    fontAwesome: 'src/components/font-awesome/fonts/*.{ttf,woff,eof,svg}',
     bowerComponents: 'src/components/**/*.*'
 };
 
@@ -33,16 +34,10 @@ var minifiedFiles = {
 
 gulp.task('inject-libs', function() {
   return gulp.src(files.home)
-    .pipe(inject(gulp.src([files.angularMain, files.angularServices, files.angularDirectives, files.angularControllers, files.styles, files.bowerFonts], { read: false }), { relative: true }))
+    .pipe(inject(gulp.src([files.angularMain, files.angularServices, files.angularDirectives, files.angularControllers, files.styles, files.fontAwesomeStyles], { read: false }), { relative: true }))
     .pipe(wiredep())
-    .pipe(gulp.dest('src'));
-});
-
-gulp.task('set-index', function() {
-  return gulp.src(files.home)
-    .pipe(inject(gulp.src([minifiedFiles.lib, minifiedFiles.custom], { read: false, cwd: __dirname + '/dist' }), { addRootSlash: false }))
     .pipe(rename('index.html'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('src'));
 });
 
 gulp.task('minify-templates', function() {
@@ -51,14 +46,8 @@ gulp.task('minify-templates', function() {
     .pipe(gulp.dest('dist/templates'));
 });
 
-gulp.task('minify-index', function() {
-  return gulp.src(files.index)
-   .pipe(minifyHTML({ collapseWhitespace: true }))
-   .pipe(gulp.dest('dist'));
-});
-
 gulp.task('css-custom', function() {
-  return gulp.src(files.styles)
+  return gulp.src([files.styles, files.fontAwesomeStyles])
     .pipe(concat('all.min.css'))
     .pipe(minifyCss())
     .pipe(gulp.dest('dist/css'));
@@ -90,6 +79,11 @@ gulp.task('fonts-custom', function() {
     .pipe(gulp.dest('dist/fonts'));
 });
 
+gulp.task('font-awesome', function() {
+  return gulp.src(files.fontAwesome)
+    .pipe(gulp.dest('dist/fonts'));
+});
+
 gulp.task('images', function() {
   return gulp.src(files.images)
     .pipe(minifyImgs())
@@ -115,15 +109,13 @@ gulp.task('browser-sync', ['inject-libs'], function() {
 
 });
 
-gulp.task('foo', function() {
-  browSync.init([], {
-    server: {
-      baseDir: 'dist'
-    }
-  }, function() {
-    console.log('up');
-  });
-
-});
 gulp.task('start', ['browser-sync']);
-gulp.task('build', ['js-libs', 'css-libs', 'css-custom', 'js-custom', 'fonts-custom', 'images', 'set-index', 'minify-templates']);
+gulp.task('prepare-libs', ['js-libs', 'css-libs', 'css-custom', 'js-custom', 'fonts-custom', 'font-awesome', 'images', 'minify-templates']);
+
+gulp.task('build', ['prepare-libs'], function() {
+  return gulp.src(files.home)
+    .pipe(inject(gulp.src([minifiedFiles.lib, minifiedFiles.custom], { read: false, cwd: __dirname + '/dist' }), { addRootSlash: false }))
+    .pipe(rename('index.html'))
+    .pipe(minifyHTML({ collapseWhitespace: true }))
+    .pipe(gulp.dest('dist'));
+});
