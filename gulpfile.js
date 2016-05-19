@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     minifyCss  = require('gulp-cssnano'),
     minifyJs   = require('gulp-uglify'),
     minifyImgs = require('gulp-imagemin'),
+    rename     = require('gulp-rename'),
     lib        = require('bower-files')(),
     concat     = require('gulp-concat'),
     minifyHTML = require('gulp-htmlmin'),
@@ -20,20 +21,27 @@ var files = {
     fonts: 'src/fonts/*.*',
     templates: 'src/templates/*.html',
     index: 'src/index.html',
+    home:  'src/home.html',
     bowerFonts: 'src/components/font-awesome/**/*.*',
     bowerComponents: 'src/components/**/*.*'
 };
 
+var minifiedFiles = {
+  custom: '*/all.min.*',
+  lib: '*/lib.min.*'
+};
+
 gulp.task('inject-libs', function() {
-  return gulp.src(files.index)
+  return gulp.src(files.home)
     .pipe(inject(gulp.src([files.angularMain, files.angularServices, files.angularDirectives, files.angularControllers, files.styles, files.bowerFonts], { read: false }), { relative: true }))
     .pipe(wiredep())
     .pipe(gulp.dest('src'));
 });
 
 gulp.task('set-index', function() {
-  return gulp.src(files.index)
-    .pipe(inject(gulp.src(['dist/css/*.css', 'dist/js/*.js'], { read: false }), { relative: true }))
+  return gulp.src(files.home)
+    .pipe(inject(gulp.src([minifiedFiles.lib, minifiedFiles.custom], { read: false, cwd: __dirname + '/dist' }), { addRootSlash: false }))
+    .pipe(rename('index.html'))
     .pipe(gulp.dest('dist'));
 });
 
@@ -85,7 +93,7 @@ gulp.task('fonts-custom', function() {
 gulp.task('images', function() {
   return gulp.src(files.images)
     .pipe(minifyImgs())
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('dist/img'));
 });
 
 gulp.task('browser-sync', ['inject-libs'], function() {
@@ -107,5 +115,15 @@ gulp.task('browser-sync', ['inject-libs'], function() {
 
 });
 
+gulp.task('foo', function() {
+  browSync.init([], {
+    server: {
+      baseDir: 'dist'
+    }
+  }, function() {
+    console.log('up');
+  });
+
+});
 gulp.task('start', ['browser-sync']);
 gulp.task('build', ['js-libs', 'css-libs', 'css-custom', 'js-custom', 'fonts-custom', 'images', 'set-index', 'minify-templates']);
