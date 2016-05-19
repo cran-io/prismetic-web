@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "CRAN.IO",
   "devDependencies": {
+    "bower-files": "^3.13.1",
     "browser-sync": "^2.12.8",
     "gulp": "~3.9.0",
     "gulp-concat": "^2.4.1",
@@ -18,6 +19,7 @@
     "wiredep": "^4.0.0"
   },
   "dependencies": {
+    "gulp-imagemin": "^3.0.1",
     "socket.io-client": "^1.4.6"
   }
 }
