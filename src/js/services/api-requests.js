@@ -34,7 +34,7 @@ angular.module('RDash').factory('apiRequest', ['$http', '$q', function($http, $q
       $http({
         method: 'GET',
         params: params,
-        url: apiUrl + '/devices/' + deviceID + '/sensors/' + sensorID + '/sensors_data',
+        url: apiUrl + '/devices/' + deviceID + '/sensors/' + sensorID + '/average',
         headers: {
           'Content-type': 'application/json'
         }
