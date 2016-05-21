@@ -1,4 +1,4 @@
-angular.module('RDash').controller('AlertsCtrl', ['$scope', function($scope) {
+angular.module('Prismetic').controller('AlertsCtrl', ['$scope', function($scope) {
   $scope.alerts = [];
 
   $scope.addAlert = function() {

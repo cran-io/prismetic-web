@@ -4,7 +4,7 @@
  */
 
 angular
-    .module('RDash')
+    .module('Prismetic')
     .directive('rdLoading', rdLoading);
 
 function rdLoading() {

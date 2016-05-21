@@ -1,4 +1,4 @@
-angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', 'sockets', function($scope, $cookieStore, apiRequest, highCharts, sockets) {
+angular.module('Prismetic').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', 'sockets', function($scope, $cookieStore, apiRequest, highCharts, sockets) {
   //navbar management.
   var mobileView = 992;
  
@@ -93,7 +93,7 @@ angular.module('RDash').controller('MasterCtrl', ['$scope', '$cookieStore', 'api
               var lastPoint  = sensorDataChart.series[0].data[lastIndex];
               $scope.enter  += Number(dot.enter);
               var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
-              if (moment(dot.sentAt) < lastPointHour) { // for example: last point is at 14.30 and y recieved a point at 14.47. its not greater than 1800 so I adjust the last point
+              if (moment(dot.sentAt) < lastPointHour) {
                 var scopedData   = $scope.rawSensorData.data[$scope.rawSensorData.data.length - 1];
                 var updatedPoint = ((scopedData.count + dot.count) / (scopedData.cant + 1)).toFixed(1);
                 lastPoint.update({ y: Number(updatedPoint) });

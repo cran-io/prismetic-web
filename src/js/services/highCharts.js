@@ -1,4 +1,4 @@
-angular.module('RDash')
+angular.module('Prismetic')
 .factory('highCharts', function() {
   return{
     lineChart: function(id, data) {

@@ -1,2 +1,2 @@
-angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io']);
+angular.module('Prismetic', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io']);
   

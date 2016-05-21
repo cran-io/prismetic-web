@@ -3,7 +3,7 @@
  */
 
 angular
-    .module('RDash')
+    .module('Prismetic')
     .directive('rdWidgetFooter', rdWidgetFooter);
 
 function rdWidgetFooter() {

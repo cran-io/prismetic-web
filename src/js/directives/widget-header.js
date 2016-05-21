@@ -3,7 +3,7 @@
  */
 
 angular
-    .module('RDash')
+    .module('Prismetic')
     .directive('rdWidgetHeader', rdWidgetTitle);
 
 function rdWidgetTitle() {
