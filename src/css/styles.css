@@ -168,3 +168,11 @@ body {
 .top-margened {
   margin-top:15px;
 }
+
+.chart-container {
+  min-height:500px;
+}
+
+.chart-container .chart {
+  height:500px;
+}
