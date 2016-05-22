@@ -1,18 +1,14 @@
-angular.module('Prismetic').controller('MasterCtrl', ['$scope', '$cookieStore', 'apiRequest', 'highCharts', 'sockets', function($scope, $cookieStore, apiRequest, highCharts, sockets) {
-  //navbar management.
-  var mobileView = 992;
- 
-  //datepicker variables
-  $scope.format = 'dd/MM/yyyy';
+angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'highCharts', 'sockets', function($scope, apiRequest, highCharts, sockets) {
+  $scope.format   = 'dd/MM/yyyy';
   $scope.begPopup = { opened: false };
   $scope.endPopup = { opened: false };
-  $scope.date = {};
+  $scope.date     = {};
 
-  $scope.devices = [];
-  $scope.sensors = [];
-  $scope.sensorData = [];
-  $scope.enter = 0;
-  $scope.exit = 0;
+  $scope.avgData  = [];
+  $scope.devices  = [];
+  $scope.sensors  = [];
+  $scope.enter    = 0;
+  $scope.exit     = 0;
 
   var sensorID, deviceID;
   
@@ -66,12 +62,12 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', '$cookieStore', 
       .getSensorData(deviceID, sensorID, params)
       .then(function(response) {
         $scope.rawSensorData = response;
-        $scope.sensorData = response.data.map(function(dot){
+        $scope.avgData = response.data.map(function(dot){
           return [new Date(dot.date).getTime(), dot.average];
         });
         $scope.enter = response.metadata.enter;
         $scope.exit  = response.metadata.exit;
-        sensorDataChart = $scope.sensorData.length ? highCharts.lineChart('chart',  $scope.sensorData) : highCharts.lineChart('chart',  $scope.sensorData).showLoading('No hay datos disponibles.');
+        avgDataChart = $scope.avgData.length ? highCharts.lineChart('chart',  $scope.avgData) : highCharts.lineChart('chart',  $scope.avgData).showLoading('No hay datos disponibles.');
       });
   };
 
@@ -88,9 +84,9 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', '$cookieStore', 
         getSensorData(deviceID, $scope.sensors[0]._id);
         $scope.sensors.forEach(function(sensor) {
           sockets.on(sensor._id, function(dot) {
-            if (sensorDataChart) {
-              var lastIndex  = sensorDataChart.series[0].data.length - 1;
-              var lastPoint  = sensorDataChart.series[0].data[lastIndex];
+            if (avgDataChart) {
+              var lastIndex  = avgDataChart.series[0].data.length - 1;
+              var lastPoint  = avgDataChart.series[0].data[lastIndex];
               $scope.enter  += Number(dot.enter);
               var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
               if (moment(dot.sentAt) < lastPointHour) {
@@ -99,37 +95,12 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', '$cookieStore', 
                 lastPoint.update({ y: Number(updatedPoint) });
               } else {
                 var newHour = moment(dot.sentAt).startOf('hour').add(30, 'minutes');
-                sensorDataChart.series[0].addPoint({x: newHour, y: dot.count});
+                avgDataChart.series[0].addPoint({x: newHour, y: dot.count});
               }
             }
           });
         });
       });
-  };
-
-  $scope.getWidth = function() {
-    return window.innerWidth;
-  };
-
-  $scope.$watch($scope.getWidth, function(newValue, oldValue) {
-    if (newValue >= mobileView) {
-      if (angular.isDefined($cookieStore.get('toggle'))) {
-        $scope.toggle = ! $cookieStore.get('toggle') ? false : true;
-      } else {
-        $scope.toggle = false;
-      }
-    } else {
-      $scope.toggle = false;
-    }
-  });
-
-  $scope.toggleSidebar = function() {
-    $scope.toggle = !$scope.toggle;
-    $cookieStore.put('toggle', $scope.toggle);
-  };
-
-  window.onresize = function() {
-    $scope.$apply();
   };
 
   $scope.today = function() {

@@ -4,168 +4,170 @@
   </div>
 </div>
 
-<div class="row">
-  
-	<div class="col-lg-3 col-md-6 col-xs-12 devices"
-        ng-repeat="device in devices"
-        ng-show="devices.length">
-    <div class="clickable"  ng-click="selectDevice(device.index)">
-      <div class="panel panel-default panel-prismetic" 
-           ng-class=" { 'active': device.selected }">
-        <div class="panel-body">
-          <div class="prismetic-rounded pull-left">
-            <i class="icon-prismetic-shopping-bag"></i>
+<div ng-controller="MasterCtrl">
+  <div class="row">
+    
+    <div class="col-lg-3 col-md-6 col-xs-12 devices"
+          ng-repeat="device in devices"
+          ng-show="devices.length">
+      <div class="clickable"  ng-click="selectDevice(device.index)">
+        <div class="panel panel-default panel-prismetic" 
+             ng-class=" { 'active': device.selected }">
+          <div class="panel-body">
+            <div class="prismetic-rounded pull-left">
+              <i class="icon-prismetic-shopping-bag"></i>
+            </div>
+            <div class="title">{{ device.model }}</div>
+            <div class="comment">{{ device.address || 'Uriarte 1882' }}</div>
           </div>
-          <div class="title">{{ device.model }}</div>
-          <div class="comment">{{ device.address || 'Uriarte 1882' }}</div>
         </div>
       </div>
     </div>
-	</div>
 
-</div>
+  </div>
 
-<div class="row">
-	<div class="col-lg-12">
-    <div class="panel panel-default"
-         ng-show="sensors.length">
-      <div class="panel-heading"><span class="icon-prismetic-router-1"></span> Sensores</div>
-        <div class="panel-body">
-          <div class="row top-margened">
-            <div class="col-lg-2 col-md-6 col-xs-12 sensors" 
-                 ng-repeat="(index, sensor) in sensors track by $index">
-              <div class="clickable" ng-click="selectSensor(sensor.index)">
-                <div class="col-xs-12 col-lg-12">
-                  <div class="panel panel-default panel-prismetic panel-sm"
-                       ng-class="{ 'active': sensor.selected }">
-                    <div class="panel-body">
-                      <div class="sensor-content">
-                        <div class="title">
-                          {{ index + 1}}
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default"
+           ng-show="sensors.length">
+        <div class="panel-heading"><span class="icon-prismetic-router-1"></span> Sensores</div>
+          <div class="panel-body">
+            <div class="row top-margened">
+              <div class="col-lg-2 col-md-6 col-xs-12 sensors" 
+                   ng-repeat="(index, sensor) in sensors track by $index">
+                <div class="clickable" ng-click="selectSensor(sensor.index)">
+                  <div class="col-xs-12 col-lg-12">
+                    <div class="panel panel-default panel-prismetic panel-sm"
+                         ng-class="{ 'active': sensor.selected }">
+                      <div class="panel-body">
+                        <div class="sensor-content">
+                          <div class="title">
+                            {{ index + 1}}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-12 col-xs-12">
-                  <div class="sensor description">
-                    <div class="title">
-                      {{ sensor.name }}
-                    </div>
-                    <div class="status">
-                      <span>
-                        <i class="fa fa-circle"
-                           ng-class="{ 'color-green': sensor.active, 'color-red': !sensor.active }">
-                        </i>
-                      </span>
-                      <span> {{ sensor.active ? 'Activo' : 'No activo' }} </span>
+                  <div class="col-lg-12 col-xs-12">
+                    <div class="sensor description">
+                      <div class="title">
+                        {{ sensor.name }}
+                      </div>
+                      <div class="status">
+                        <span>
+                          <i class="fa fa-circle"
+                             ng-class="{ 'color-green': sensor.active, 'color-red': !sensor.active }">
+                          </i>
+                        </span>
+                        <span> {{ sensor.active ? 'Activo' : 'No activo' }} </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+      </div>
     </div>
-	</div>
-	<div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading row">
-        <div>
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading row">
+          <div>
 
-          <div class="col-lg-3">
-            <div>
-              <div class="form-inline">
-                <span class="last">Último: </span>
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-xs btn-raised btn-primary"
-                         ng-class="{ active: period == 'days'}"
-                         ng-model="period"
-                         ng-click="setPeriod('days')">
-                    <input type="radio" name="options"> Día
-                  </label>
-                  <label class="btn btn-xs btn-raised btn-primary"
-                         ng-class="{ active: period == 'weeks'}"
-                         ng-model="period"
-                         ng-click="setPeriod('weeks')">
-                    <input type="radio" name="options"> Semana
-                  </label>
-                  <label class="btn btn-xs btn-raised btn-primary"
-                         ng-class="{ active: period == 'months'}"
-                         ng-model="period"
-                         ng-click="setPeriod('months')">
-                    <input type="radio" name="options"> Mes
-                  </label>
+            <div class="col-lg-3">
+              <div>
+                <div class="form-inline">
+                  <span class="last">Último: </span>
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-xs btn-raised btn-primary"
+                           ng-class="{ active: period == 'days'}"
+                           ng-model="period"
+                           ng-click="setPeriod('days')">
+                      <input type="radio" name="options"> Día
+                    </label>
+                    <label class="btn btn-xs btn-raised btn-primary"
+                           ng-class="{ active: period == 'weeks'}"
+                           ng-model="period"
+                           ng-click="setPeriod('weeks')">
+                      <input type="radio" name="options"> Semana
+                    </label>
+                    <label class="btn btn-xs btn-raised btn-primary"
+                           ng-class="{ active: period == 'months'}"
+                           ng-model="period"
+                           ng-click="setPeriod('months')">
+                      <input type="radio" name="options"> Mes
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-lg-7">
-            <div>
-              <div class="form-inline">
-                <span class="to"> Desde: </span>
-                <span class="input-group">
-                  <input type="text" 
-                         class="form-control input-xs" 
-                         uib-datepicker-popup="{{format}}" 
-                         ng-model="date.begDate" 
-                         is-open="begPopup.opened" 
-                         datepicker-options="dateOptions" 
-                         close-text="Cerrar" 
-                         ng-click="open('beginning')"
-                         ng-change="changeDate('beginning', date.begDate)" 
-                         alt-input-formats="altInputFormats" />
-                </span>
-                <span class="from"> Hasta: </span>
-                <span class="input-group">
-                  <input type="text" 
-                         class="form-control input-xs" 
-                         uib-datepicker-popup="{{format}}" 
-                         ng-model="date.endDate" 
-                         is-open="endPopup.opened" 
-                         datepicker-options="dateOptions" 
-                         close-text="Cerrar" 
-                         ng-click="open('end')"
-                         ng-change="changeDate('end', date.endDate)"
-                         alt-input-formats="altInputFormats" />
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <span class="pull-right">
-              <div class="btn btn-xs btn-raised btn-info">
-                Exportar
-              </div>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="row" style="margin-top:10px">
-          <div class="col-xs-12 col-lg-3">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="foo">
-                  <span class="metrics-container">
-                    <i class="icon-prismetic-footsteps icon-red icon-full icon-big"></i>
+            <div class="col-lg-7">
+              <div>
+                <div class="form-inline">
+                  <span class="to"> Desde: </span>
+                  <span class="input-group">
+                    <input type="text" 
+                           class="form-control input-xs" 
+                           uib-datepicker-popup="{{format}}" 
+                           ng-model="date.begDate" 
+                           is-open="begPopup.opened" 
+                           datepicker-options="dateOptions" 
+                           close-text="Cerrar" 
+                           ng-click="open('beginning')"
+                           ng-change="changeDate('beginning', date.begDate)" 
+                           alt-input-formats="altInputFormats" />
                   </span>
-                  <span class="metric-number">
-                    {{enter}}
+                  <span class="from"> Hasta: </span>
+                  <span class="input-group">
+                    <input type="text" 
+                           class="form-control input-xs" 
+                           uib-datepicker-popup="{{format}}" 
+                           ng-model="date.endDate" 
+                           is-open="endPopup.opened" 
+                           datepicker-options="dateOptions" 
+                           close-text="Cerrar" 
+                           ng-click="open('end')"
+                           ng-change="changeDate('end', date.endDate)"
+                           alt-input-formats="altInputFormats" />
                   </span>
-                  <span class="metric-label">personas entraron</span>
                 </div>
               </div>
             </div>
+            <div class="col-lg-2">
+              <span class="pull-right">
+                <div class="btn btn-xs btn-raised btn-info">
+                  Exportar
+                </div>
+              </span>
+            </div>
           </div>
-          <div class="col-xs-12 col-lg-9">
-            <div class="chart-container">
-              <div id="chart" class="chart"></div>
+        </div>
+        <div class="panel-body">
+          <div class="row" style="margin-top:10px">
+            <div class="col-xs-12 col-lg-3">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="foo">
+                    <span class="metrics-container">
+                      <i class="icon-prismetic-footsteps icon-red icon-full icon-big"></i>
+                    </span>
+                    <span class="metric-number">
+                      {{enter}}
+                    </span>
+                    <span class="metric-label">personas entraron</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-9">
+              <div class="chart-container">
+                <div id="chart" class="chart"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-	</div>
+  </div>
 </div>
