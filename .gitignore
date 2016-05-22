@@ -6,3 +6,6 @@
 
 # Bower components
 /src/components
+
+# generated index
+/src/index.html
