@@ -28,7 +28,7 @@ angular.module('Prismetic')
           xAxis: {
               labels: {
                 formatter: function(foo) {
-                    return moment(this.value).format('H:m:s');
+                    return moment(this.value).format('HH:mm');
                 }
               },
               title: {
