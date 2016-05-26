@@ -4,7 +4,6 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   $scope.endPopup = { opened: false };
   $scope.date     = {};
 
-  $scope.avgData  = [];
   $scope.devices  = [];
   $scope.sensors  = [];
   $scope.enter    = 0;
@@ -12,6 +11,9 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
 
   var sensorID, deviceID;
   
+  var countData, avgData = [];
+  var countChart, averageChart;
+
   (function() {
     apiRequest
       .getDevices()
@@ -45,29 +47,34 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
       if (sensor.index == index) {
         sensor.selected = true;
         sensorID = sensor._id;
-        getSensorData(deviceID, sensorID);
+        getDeviceData(deviceID, sensorID);
       } else {
         sensor.selected = false;
       }
     });
   };
 
-  var getSensorData = function(deviceID, sensorID) {
+  var getDeviceData = function(deviceID, sensorID) {
     var params = {
+      'sensors[]': [sensorID],
       dateFrom: $scope.date.begDate,
       dateTo: $scope.date.endDate,
       interval: 60
     };
     apiRequest
-      .getSensorData(deviceID, sensorID, params)
+      .getDeviceData(deviceID, params)
       .then(function(response) {
         $scope.rawSensorData = response;
-        $scope.avgData = response.data.map(function(dot){
-          return [new Date(dot.date).getTime(), dot.average];
+        countData = response.data.count.map(function(dot) {
+          return [new Date(dot.sentAt).getTime(), dot.count];
+        });
+
+        avgData = response.data.average.map(function(dot) {
+          return [new Date(dot.sentAt).getTime(), dot.average];
         });
         $scope.enter = response.metadata.enter;
         $scope.exit  = response.metadata.exit;
-        avgDataChart = $scope.avgData.length ? highCharts.lineChart('chart',  $scope.avgData) : highCharts.lineChart('chart',  $scope.avgData).showLoading('No hay datos disponibles.');
+        countChart = countData.length ? highCharts.lineChart('chart', countData) : highCharts.lineChart('chart', countData).showLoading('No hay datos disponibles.');
       });
   };
 
@@ -81,13 +88,17 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
           sensor.selected = index == 0;
         });
         sensorID = $scope.sensors[0]._id;
-        getSensorData(deviceID, $scope.sensors[0]._id);
+        getDeviceData(deviceID, $scope.sensors[0]._id);
         $scope.sensors.forEach(function(sensor) {
           sockets.on(sensor._id, function(dot) {
-            if (avgDataChart) {
-              var lastIndex  = avgDataChart.series[0].data.length - 1;
-              var lastPoint  = avgDataChart.series[0].data[lastIndex];
-              $scope.enter  += Number(dot.enter);
+            $scope.enter  += Number(dot.enter);
+            if (countChart) {
+              countChart.series[0].addPoint({x: new Date(dot.sentAt).getTime(), y: dot.count});
+            }
+
+            if (averageChart) {
+              var lastIndex  = averageChart.series[0].data.length - 1;
+              var lastPoint  = averageChart.series[0].data[lastIndex];
               var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
               if (moment(dot.sentAt) < lastPointHour) {
                 var scopedData   = $scope.rawSensorData.data[$scope.rawSensorData.data.length - 1];
@@ -95,7 +106,7 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
                 lastPoint.update({ y: Number(updatedPoint) });
               } else {
                 var newHour = moment(dot.sentAt).startOf('hour').add(30, 'minutes');
-                avgDataChart.series[0].addPoint({x: newHour, y: dot.count});
+                averageChart.series[0].addPoint({x: newHour, y: dot.count});
               }
             }
           });
@@ -124,11 +135,11 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
     var subs = period == 'days' ? 0 : 1;
     $scope.date.begDate = moment($scope.date.endDate).subtract(subs, period).startOf('day')._d;
     $scope.date.endDate = moment($scope.date.endDate)._d;
-    getSensorData(deviceID, sensorID);
+    getDeviceData(deviceID, sensorID);
   };
 
   $scope.changeDate = function(type, date) {
-    getSensorData(deviceID, sensorID);
+    getDeviceData(deviceID, sensorID);
     $scope.period = null;
   };
 
