@@ -10,7 +10,9 @@ var gulp = require('gulp'),
     wiredep    = require('wiredep').stream,
     inject     = require('gulp-inject'),
     browSync   = require('browser-sync');
-    
+
+var timestamp = (new Date()).getTime();
+
 var files = {
     angularMain: 'src/js/*.js',
     angularDirectives: 'src/js/directives/*.js',
@@ -28,8 +30,8 @@ var files = {
 };
 
 var minifiedFiles = {
-  custom: '*/all.min.*',
-  lib: '*/lib.min.*'
+  custom: '*/all.*.min.*',
+  lib: '*/lib.*.min.*'
 };
 
 gulp.task('inject-libs', function() {
@@ -48,28 +50,28 @@ gulp.task('minify-templates', function() {
 
 gulp.task('css-custom', function() {
   return gulp.src([files.styles, files.fontAwesomeStyles])
-    .pipe(concat('all.min.css'))
+    .pipe(concat('all.' + timestamp + '.min.css'))
     .pipe(minifyCss())
     .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('js-custom', function() {
   return gulp.src([files.angularMain, files.angularServices, files.angularDirectives, files.angularControllers])
-    .pipe(concat('all.min.js'))
+    .pipe(concat('all.' + timestamp + '.min.js'))
     .pipe(minifyJs())
     .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('js-libs', function() {
   return gulp.src(lib.ext('js').files)
-    .pipe(concat('lib.min.js'))
+    .pipe(concat('lib.' + timestamp  + '.min.js'))
     .pipe(minifyJs())
     .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('css-libs', function() {
   return gulp.src(lib.ext('css').files)
-    .pipe(concat('lib.min.css'))
+    .pipe(concat('lib.' + timestamp  + '.min.css'))
     .pipe(minifyCss())
     .pipe(gulp.dest('dist/css'));
 });
