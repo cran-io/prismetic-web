@@ -89,6 +89,10 @@ body {
   font-size: 28px;
 }
 
+.panel-prismetic .comment span {
+  font-style: normal;
+}
+
 .panel-prismetic .prismetic-rounded i{
   font-size: 40px;
   margin-right: 20px;
@@ -176,3 +180,21 @@ body {
 .chart-container .chart {
   height: 500px;
 }
+
+span.editable-click,
+span.editable-click:hover { 
+  color: #FFFFFF;
+}
+
+form.editable-text .editable-input {
+  color:#FFFFFF;
+}
+
+form.editable-text .editable-controls.form-group {
+  margin-top:0;
+}
+
+.no-borders {
+  border:none;
+}
+

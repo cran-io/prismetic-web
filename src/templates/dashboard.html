@@ -6,7 +6,6 @@
 
 <div ng-controller="MasterCtrl">
   <div class="row">
-    
     <div class="col-lg-3 col-md-6 col-xs-12 devices"
           ng-repeat="device in devices"
           ng-show="devices.length">
@@ -17,13 +16,25 @@
             <div class="prismetic-rounded pull-left">
               <i class="icon-prismetic-shopping-bag"></i>
             </div>
-            <div class="title">{{ device.model }}</div>
-            <div class="comment">{{ device.address || 'Uriarte 1882' }}</div>
+            <div class="title">
+              <span editable-text="device.model" 
+                    class="no-borders"
+                    buttons="no">
+                {{ device.model }}
+              </span>
+            </div>
+            <div class="comment">
+              <span editable-text="device.address" 
+                    class="no-borders"
+                    e-class="input-xs" 
+                    buttons="no">
+                {{ device.address || 'Uriarte 1882' }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="row">
