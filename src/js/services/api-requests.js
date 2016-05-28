@@ -75,12 +75,12 @@ angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http
     return deferred.promise;
   };
 
-  ['postDeviceName', 'postAddressLocation'].forEach(function(post) {
-    requests[post] = function(deviceID, params) {
+  ['updateDeviceName', 'updateAddressLocation'].forEach(function(post) {
+    requests[post] = function(deviceID, device) {
       var deferred = $q.defer();
       $http({
         method: 'PUT',
-        params: params,
+        params: device,
         url: apiUrl + '/devices/' + deviceID,
         headers: {
           'Content-type': 'application/json'
@@ -93,6 +93,6 @@ angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http
 
   });
 
-  
   return requests;
+
 }]);

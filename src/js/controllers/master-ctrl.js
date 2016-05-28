@@ -54,6 +54,15 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
     });
   };
 
+  ['updateDeviceName', 'updateDeviceLocation'].forEach(function(func) {
+    $scope[func] = function(id) {
+      var device = $scope.devices.find(function(device){
+        return device._id == id;
+      });
+      apiRequest.updateDeviceName(id, device);
+    };
+  }); 
+
   var getDeviceData = function(deviceID, sensorID) {
     var params = {
       'sensors[]': [sensorID],

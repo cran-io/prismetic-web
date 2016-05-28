@@ -187,14 +187,14 @@ span.editable-click:hover {
 }
 
 form.editable-text .editable-input {
-  color:#FFFFFF;
+  color: #FFFFFF;
 }
 
 form.editable-text .editable-controls.form-group {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .no-borders {
-  border:none;
+  border: none;
 }
 
