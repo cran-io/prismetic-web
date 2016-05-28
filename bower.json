@@ -16,7 +16,7 @@
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]
-    }, 
+    },
     "socket.io-client": {
       "main": "socket.io.js"
     }
@@ -35,6 +35,7 @@
     "moment": "^2.13.0",
     "highcharts": "^4.2.5",
     "socket.io-client": "^1.4.6",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "angular-xeditable": "^0.1.12"
   }
 }
