@@ -55,27 +55,12 @@ body {
 
 .devices a,
 .sensors a {
-  text-decoration:none;
-}
-
-.rounded-icon {
-  background: #30426a;
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  text-align: center;
-  vertical-align: middle;
-  margin-right: 15px;
-}
-
- .rounded-icon i {
-  line-height: 66px;
-  color: #ffffff;
-  font-size: 30px;
+  text-decoration: none;
 }
 
 .panel-prismetic {
   border-radius: 9px;
+  color: #000000;
 }
 
 .panel-prismetic.active {
@@ -93,7 +78,7 @@ body {
   font-style: normal;
 }
 
-.panel-prismetic .prismetic-rounded i{
+.panel-prismetic .prismetic-rounded i {
   font-size: 40px;
   margin-right: 20px;
 }
@@ -181,11 +166,15 @@ body {
   height: 500px;
 }
 
-span.editable-click,
-span.editable-click:hover { 
+.panel-prismetic.active span.editable-click,
+.panel-prismetic.active span.editable-click:hover { 
   color: #FFFFFF;
 }
 
+.panel-prismetic span.editable-click,
+.panel-prismetic span.editable-click:hover { 
+  color: #000000;
+}
 form.editable-text .editable-input {
   color: #FFFFFF;
 }
