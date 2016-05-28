@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     watch      = require('gulp-watch'),
+    clean      = require('gulp-clean'),
     minifyCss  = require('gulp-cssnano'),
     minifyJs   = require('gulp-uglify'),
     minifyImgs = require('gulp-imagemin'),
@@ -111,10 +112,15 @@ gulp.task('browser-sync', ['inject-libs'], function() {
 
 });
 
+gulp.task('clean-directories', function() {
+  return gulp.src(['dist/css', 'dist/js'], { read: false })
+    .pipe(clean());
+});
+
 gulp.task('start', ['browser-sync']);
 gulp.task('prepare-libs', ['js-libs', 'css-libs', 'css-custom', 'js-custom', 'fonts-custom', 'font-awesome', 'images', 'minify-templates']);
 
-gulp.task('build', ['prepare-libs'], function() {
+gulp.task('build', ['prepare-libs', 'clean-directories'], function() {
   return gulp.src(files.home)
     .pipe(inject(gulp.src([minifiedFiles.lib, minifiedFiles.custom], { read: false, cwd: __dirname + '/dist' }), { addRootSlash: false }))
     .pipe(rename('index.html'))
