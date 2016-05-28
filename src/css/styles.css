@@ -70,12 +70,19 @@ body {
   box-shadow: inset 0px 0px 9px 0px rgba(0,0,0,0.15);
 }
 
-.panel-prismetic .title {
+.panel-prismetic .title span {
   font-size: 28px;
+  color: #000000;
 }
 
 .panel-prismetic .comment span {
-  font-style: normal;
+  color: #000000;
+  font-style:normal;
+}
+
+.panel-prismetic.active .title span,
+.panel-prismetic.active .comment span {
+  color: #FFFFFF;
 }
 
 .panel-prismetic .prismetic-rounded i {
@@ -166,15 +173,6 @@ body {
   height: 500px;
 }
 
-.panel-prismetic.active span.editable-click,
-.panel-prismetic.active span.editable-click:hover { 
-  color: #FFFFFF;
-}
-
-.panel-prismetic span.editable-click,
-.panel-prismetic span.editable-click:hover { 
-  color: #000000;
-}
 form.editable-text .editable-input {
   color: #FFFFFF;
 }
