@@ -5,6 +5,7 @@
 </div>
 
 <div ng-controller="MasterCtrl">
+
   <div class="row">
     <div class="col-lg-3 col-md-6 col-xs-12 devices"
           ng-repeat="device in devices"
@@ -48,44 +49,47 @@
       <div class="panel panel-default"
            ng-show="sensors.length">
         <div class="panel-heading"><span class="icon-prismetic-router-1"></span> Sensores</div>
-          <div class="panel-body">
-            <div class="row top-margened">
-              <div class="col-lg-2 col-md-6 col-xs-12 sensors" 
-                   ng-repeat="(index, sensor) in sensors track by $index">
-                <div class="clickable" ng-click="selectSensor(sensor.index)">
-                  <div class="col-xs-12 col-lg-12">
-                    <div class="panel panel-default panel-prismetic panel-sm"
-                         ng-class="{ 'active': sensor.selected }">
-                      <div class="panel-body">
-                        <div class="sensor-content">
-                          <div class="title">
-                            {{ index + 1}}
-                          </div>
+        <div class="panel-body">
+          <div class="row top-margened">
+            <div class="col-lg-2 col-md-6 col-xs-12 sensors" 
+                 ng-repeat="(index, sensor) in sensors track by $index">
+              <div class="clickable" ng-click="selectSensor(sensor.index)">
+                <div class="col-xs-12 col-lg-12">
+                  <div class="panel panel-default panel-prismetic panel-sm"
+                       ng-class="{ 'active': sensor.selected }">
+                    <div class="panel-body">
+                      <div class="sensor-content">
+                        <div class="title">
+                          {{ index + 1}}
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-12 col-xs-12">
-                    <div class="sensor description">
-                      <div class="title">
-                        {{ sensor.name }}
-                      </div>
-                      <div class="status">
-                        <span>
-                          <i class="fa fa-circle"
-                             ng-class="{ 'color-green': sensor.active, 'color-red': !sensor.active }">
-                          </i>
-                        </span>
-                        <span> {{ sensor.active ? 'Activo' : 'No activo' }} </span>
-                      </div>
+                </div>
+                <div class="col-lg-12 col-xs-12">
+                  <div class="sensor description">
+                    <div class="title">
+                      {{ sensor.name }}
+                    </div>
+                    <div class="status">
+                      <span>
+                        <i class="fa fa-circle"
+                           ng-class="{ 'color-green': sensor.active, 'color-red': !sensor.active }">
+                        </i>
+                      </span>
+                      <span> {{ sensor.active ? 'Activo' : 'No activo' }} </span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="row" ng-show=" devices.length && sensors.length">
     <div class="col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading row">
@@ -151,6 +155,7 @@
                 </div>
               </div>
             </div>
+
             <div class="col-lg-2">
               <span class="pull-right">
                 <div class="btn btn-xs btn-raised btn-info">
@@ -158,6 +163,7 @@
                 </div>
               </span>
             </div>
+
           </div>
         </div>
         <div class="panel-body">
@@ -187,4 +193,5 @@
       </div>
     </div>
   </div>
+
 </div>
