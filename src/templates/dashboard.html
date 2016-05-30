@@ -24,7 +24,7 @@
                     onaftersave="updateDeviceName(device._id)"
                     class="no-borders title-label"
                     buttons="no">
-                {{ device.model }}
+                {{ 'Nombre' || device.model }}
               </span>
             </div>
             <div class="comment">
@@ -35,7 +35,7 @@
                     class="no-borders comment-label"
                     e-class="input-xs" 
                     buttons="no">
-                {{ device.address || 'Uriarte 1882' }}
+                {{ device.address || 'Dirección' }}
               </span>
             </div>
           </div>

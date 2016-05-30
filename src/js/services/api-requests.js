@@ -60,27 +60,12 @@ angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http
     return deferred.promise;
   };
 
-  requests.postDeviceName = function(deviceID, params) {
-    var deferred = $q.defer();
-    $http({
-      method: 'PUT',
-      params: params,
-      url: apiUrl + '/devices/' + deviceID,
-      headers: {
-        'Content-type': 'application/json'
-      }
-    }).success(function(response) {
-      deferred.resolve(response);
-    });
-    return deferred.promise;
-  };
-
-  ['updateDeviceName', 'updateAddressLocation'].forEach(function(post) {
-    requests[post] = function(deviceID, device) {
+  ['updateDeviceName', 'updateAddressLocation'].forEach(function(func) {
+    requests[func] = function(deviceID, device) {
       var deferred = $q.defer();
       $http({
         method: 'PUT',
-        params: device,
+        data: device,
         url: apiUrl + '/devices/' + deviceID,
         headers: {
           'Content-type': 'application/json'
