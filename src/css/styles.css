@@ -136,20 +136,6 @@ body {
   cursor: pointer;
 }
 
-.icon-full {
-  padding: 10px;
-  border-radius: 7px;
-  color: white;
-}
-
-.icon-red {
-  background-color: #f0596b;
-}
-
-.icon-big {
-  font-size: 30px;
-}
-
 .metric-number {
   margin-left: 5px;
   font-size: 23px;
@@ -166,11 +152,11 @@ body {
 }
 
 .chart-container {
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .chart-container .chart {
-  height: 500px;
+  height: 400px;
 }
 
 form.editable-text .editable-input {

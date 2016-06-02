@@ -91,3 +91,21 @@
 .icon-prismetic-footsteps:before {
   content: "\e911";
 }
+
+.icon-full {
+  padding: 10px;
+  border-radius: 7px;
+  color: white;
+}
+
+.icon-red {
+  background-color: #f0596b;
+}
+
+.icon-blue {
+  background-color: #2980b9;
+}
+
+.icon-big {
+  font-size: 30px;
+}
