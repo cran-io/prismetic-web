@@ -5,7 +5,7 @@ angular.module('Prismetic')
       $('#'+id).highcharts({
           chart: {
               zoomType: 'x',
-              type: 'column'
+              type: 'areaspline'
           },
           credits: {
               enabled: false
