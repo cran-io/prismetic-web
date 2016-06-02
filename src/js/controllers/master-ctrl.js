@@ -7,10 +7,10 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   $scope.devices  = [];
   $scope.sensors  = [];
   $scope.enter    = 0;
-  $scope.exit     = 0;
+  
+  $scope.currentPeople = 0;
 
   var sensorID, deviceID;
-  
   var countData, avgData = [];
   var countChart, averageChart;
 
@@ -77,12 +77,11 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
         countData = response.data.count.map(function(dot) {
           return [new Date(dot.sentAt).getTime(), dot.count];
         });
-
+        $scope.currentPeople = countData.length ? countData[countData.length - 1][1] : 0
         avgData = response.data.average.map(function(dot) {
           return [new Date(dot.sentAt).getTime(), dot.average];
         });
         $scope.enter = response.metadata.enter;
-        $scope.exit  = response.metadata.exit;
         countChart = countData.length ? highCharts.lineChart('chart', countData) : highCharts.lineChart('chart', countData).showLoading('No hay datos disponibles.');
       });
   };
@@ -102,7 +101,8 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
           sockets.on(sensor._id, function(dot) {
             $scope.enter  += Number(dot.enter);
             if (countChart) {
-              countChart.series[0].addPoint({x: new Date(dot.sentAt).getTime(), y: dot.count});
+              countChart.series[0].addPoint({ x: new Date(dot.sentAt).getTime(), y: dot.count });
+              $scope.currentPeople = dot.count;
             }
 
             if (averageChart) {
