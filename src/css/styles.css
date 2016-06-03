@@ -171,3 +171,16 @@ form.editable-text .editable-controls.form-group {
   border: none;
 }
 
+@media(min-width:1200px) {
+  .vcontainer {
+    display: table;
+    table-layout: fixed;
+    width:100%;
+  }
+
+  .vcontent {
+    display:table-cell;
+    vertical-align:middle;
+    float:none;
+  }
+}
