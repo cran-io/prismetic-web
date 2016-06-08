@@ -1,4 +1,3 @@
-'use strict';
 angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'highCharts', 'sockets', function($scope, apiRequest, highCharts, sockets) {
   $scope.format   = 'dd/MM/yyyy';
   $scope.begPopup = { opened: false };
@@ -110,8 +109,8 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   var socketSensorFn = function(dot) {
     $scope.enter  += Number(dot.enter);
     if (countChart) {
-      let xDate = new Date(moment(dot.sentAt).subtract(1, 'ms')).getTime();
-      let yCount = countChart.series[0].data[countChart.series[0].data.length - 1].y;
+      var xDate = new Date(moment(dot.sentAt).subtract(1, 'ms')).getTime();
+      var yCount = countChart.series[0].data[countChart.series[0].data.length - 1].y;
       countChart.series[0].addPoint({x: xDate, y: yCount});
       countChart.series[0].addPoint({ x: new Date(dot.sentAt).getTime(), y: dot.count });
       $scope.currentPeople = dot.count;
