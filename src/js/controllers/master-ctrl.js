@@ -1,3 +1,4 @@
+'use strict';
 angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'highCharts', 'sockets', function($scope, apiRequest, highCharts, sockets) {
   $scope.format   = 'dd/MM/yyyy';
   $scope.begPopup = { opened: false };
@@ -13,6 +14,7 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   var sensorID, deviceID;
   var countData, avgData = [];
   var countChart, averageChart;
+  var currentSocket;
 
   (function() {
     apiRequest
@@ -64,6 +66,9 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   }); 
 
   var getDeviceData = function(deviceID, sensorID) {
+    if(moment($scope.date.endDate).format("DDMMYYYY") == moment().format("DDMMYYYY")) {
+      $scope.date.endDate = moment()._d;
+    }
     var params = {
       'sensors[]': [sensorID],
       dateFrom: $scope.date.begDate,
@@ -73,6 +78,7 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
     apiRequest
       .getDeviceData(deviceID, params)
       .then(function(response) {
+        addSocketListener(sensorID);
         $scope.rawSensorData = response;
         countData = response.data.count.map(function(dot) {
           return [new Date(dot.sentAt).getTime(), dot.count];
@@ -97,31 +103,39 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
         });
         sensorID = $scope.sensors[0]._id;
         getDeviceData(deviceID, $scope.sensors[0]._id);
-        $scope.sensors.forEach(function(sensor) {
-          sockets.on(sensor._id, function(dot) {
-            $scope.enter  += Number(dot.enter);
-            if (countChart) {
-              countChart.series[0].addPoint({ x: new Date(dot.sentAt).getTime(), y: dot.count });
-              $scope.currentPeople = dot.count;
-            }
-
-            if (averageChart) {
-              var lastIndex  = averageChart.series[0].data.length - 1;
-              var lastPoint  = averageChart.series[0].data[lastIndex];
-              var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
-              if (moment(dot.sentAt) < lastPointHour) {
-                var scopedData   = $scope.rawSensorData.data[$scope.rawSensorData.data.length - 1];
-                var updatedPoint = ((scopedData.count + dot.count) / (scopedData.cant + 1)).toFixed(1);
-                lastPoint.update({ y: Number(updatedPoint) });
-              } else {
-                var newHour = moment(dot.sentAt).startOf('hour').add(30, 'minutes');
-                averageChart.series[0].addPoint({x: newHour, y: dot.count});
-              }
-            }
-          });
-        });
       });
   };
+
+
+  var socketSensorFn = function(dot) {
+    $scope.enter  += Number(dot.enter);
+    if (countChart) {
+      let xDate = new Date(moment(dot.sentAt).subtract(1, 'ms')).getTime();
+      let yCount = countChart.series[0].data[countChart.series[0].data.length - 1].y;
+      countChart.series[0].addPoint({x: xDate, y: yCount});
+      countChart.series[0].addPoint({ x: new Date(dot.sentAt).getTime(), y: dot.count });
+      $scope.currentPeople = dot.count;
+    }
+    if (averageChart) {
+      var lastIndex  = averageChart.series[0].data.length - 1;
+      var lastPoint  = averageChart.series[0].data[lastIndex];
+      var lastPointHour = moment(lastPoint.x).add(30, 'minutes');
+      if (moment(dot.sentAt) < lastPointHour) {
+        var scopedData   = $scope.rawSensorData.data[$scope.rawSensorData.data.length - 1];
+        var updatedPoint = ((scopedData.count + dot.count) / (scopedData.cant + 1)).toFixed(1);
+        lastPoint.update({ y: Number(updatedPoint) });
+      } else {
+        var newHour = moment(dot.sentAt).startOf('hour').add(30, 'minutes');
+        averageChart.series[0].addPoint({x: newHour, y: dot.count});
+      }
+    }
+  }
+
+  var addSocketListener = function(sensorID) {
+    sockets.removeListener(currentSocket, socketSensorFn);
+    currentSocket = sensorID;
+    sockets.on(sensorID, socketSensorFn);
+  }
 
   $scope.today = function() {
     $scope.date.begDate = moment().startOf('day')._d;
