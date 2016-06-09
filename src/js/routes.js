@@ -4,12 +4,21 @@ angular.module('Prismetic').config(['$stateProvider', '$urlRouterProvider', func
   $urlRouterProvider.otherwise('/');
   // Application routes
   $stateProvider
-      .state('index', {
+      .state('main', {
+        templateUrl: 'templates/main.html',
+        // url: '/'
+      })
+      .state('main.index', {
           url: '/',
           templateUrl: 'templates/dashboard.html'
       })
-      .state('tables', {
+      .state('main.tables', {
           url: '/tables',
           templateUrl: 'templates/tables.html'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
       });
 }]);
