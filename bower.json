@@ -36,6 +36,7 @@
     "highcharts": "^4.2.5",
     "socket.io-client": "^1.4.6",
     "angular-socket-io": "^0.7.0",
-    "angular-xeditable": "^0.1.12"
+    "angular-xeditable": "^0.1.12",
+    "ngstorage": "^0.3.10"
   }
 }
