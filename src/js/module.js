@@ -1,6 +1,6 @@
 angular
   .module('Prismetic', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io', 'xeditable', 'ngAnimate', 'ngStorage'])
-  .factory('httpInterceptor', ['$q', '$location', '$localStorage', function() {
+  .factory('httpInterceptor', ['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
       return {
         responseError: function(response) {
           if (response.status === 401) {
