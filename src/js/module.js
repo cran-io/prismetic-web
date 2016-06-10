@@ -5,7 +5,6 @@ angular
         responseError: function(response) {
           if (response.status === 401) {
             delete $localStorage.user;
-            console.log("C", $localStorage)
             $location.path('/login');
           }
           return $q.reject(response);
