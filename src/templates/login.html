@@ -1,24 +1,25 @@
-<div class="row">
-	<div class="col-sm-6 col-sm-offset-3">
-		<div class="text-center">
-			<h1>Prismetic+</h1>
-			<h3>Welcome to Prismetic APP</h3>
-		</div>
-		<form role="form" ng-submit="submit()">
-			<div class="row">
-				<div class="col-sm-12">
-					<input type="email" class="form-control" placeholder="Ingrese su mail" required="true" ng-model="form.mail">
+<div class="row login-row ">
+	<form role="form" class="all-height" ng-submit="submit()">
+		<div class="row login-top-row"></div>
+		<div class="row vcontainer login-middle-row">
+			<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 vcontent">
+				<div class="row">
+					<div class="col-sm-12">
+						<input type="email" class="form-control login-input" placeholder="Email" required="true" ng-model="form.mail">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"><input type="password" class="form-control login-input" placeholder="Password" required="true" ng-model="form.password"></div>
+				</div>
+				<div class="text-center">
+					<button id="buttonLogIn" type="submit" class="btn btn-primary login-button">Iniciar Sesi&oacute;n</button>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-12"><input type="password" class="form-control" placeholder="Password" required="true" ng-model="form.password"></div>
+		</div>
+		<div class="row login-bottom-row">
+			<div class="text-right">
+				<a class="text-center forgot-password-button">¿Olvidaste tu contraseña?</a>
 			</div>
-			<div class="text-center"> 
-				<button id="buttonLogIn" type="submit" class="btn btn-primary">Iniciar Sesi&oacute;n</button>
-			</div>
-			<div class="text-center">
-				<a class="text-center"><small>¿Olvidaste tu contraseña?</small></a>
-			</div>   
-		</div>     
+		</div>
 	</form>
 </div>

@@ -8,6 +8,11 @@
   src: local('Ubuntu'), url(http://example.com/fonts/ubuntu.woff) format('woff');
 }
 
+@font-face {
+ font-family: 'helvetica';
+ src: url('../fonts/Helvetica.otf') format('opentype');
+}
+
 body {
   font-family: 'Ubuntu';
 }
@@ -39,7 +44,7 @@ body {
 }
 
 .uib-datepicker .text-info,
-.btn:not(.btn-raised).btn-info, 
+.btn:not(.btn-raised).btn-info,
 .input-group-btn .btn:not(.btn-raised) .btn-info {
   color: #000000;
 }
@@ -183,4 +188,76 @@ form.editable-text .editable-controls.form-group {
     vertical-align:middle;
     float:none;
   }
+}
+
+html, body, section {
+	height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+section{
+	position: relative;
+
+}
+.login-row{
+  height: 100%;
+}
+.ng-scope{
+  height: 100%;
+}
+
+.login-row{
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 100%,rgba(0,0,0,0.2) 100%), url('../img/login_background.jpeg');
+	background-repeat: no-repeat;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: white;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.login-input{
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  color: grey;
+  font-family: 'helvetica';
+  background-image: none!important;
+}
+.login-button{
+  background-color: #00d46a;
+  border-radius: 5px;
+  color: white!important;
+  letter-spacing: 1px;
+  font-family: 'helvetica';
+}
+.forgot-password-button{
+  color: white;
+  font-size: 16px;
+  font-family: 'helvetica';
+}
+.login-middle-row{
+  height: calc(100% - 135px);
+}
+.login-top-row{
+  height: 100px;
+}
+
+.login-bottom-row{
+  padding-bottom: 15px;
+  height: 35px;
+  text-align: right;
+}
+.all-height{
+  height: 100%;
+}
+.text-right{
+  text-align: right;
+  padding-right: 15px;
 }
