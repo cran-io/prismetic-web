@@ -231,11 +231,16 @@ section{
   background-image: none!important;
 }
 .login-button{
-  background-color: #00d46a;
+  background-color: #00d46a!important;
   border-radius: 5px;
   color: white!important;
   letter-spacing: 1px;
   font-family: 'helvetica';
+  border: solid transparent;
+  text-transform: uppercase;
+  padding-top: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .forgot-password-button{
   color: white;
