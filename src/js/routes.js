@@ -8,17 +8,23 @@ angular.module('Prismetic').config(['$stateProvider', '$urlRouterProvider', func
         templateUrl: 'templates/main.html',
         // url: '/'
       })
-      .state('main.index', {
-          url: '/',
-          templateUrl: 'templates/dashboard.html'
+      .state('main.dashboard', {
+        url: '/',
+        templateUrl: 'templates/dashboard.html',
+        onEnter:  ['SessionService', '$location', '$localStorage', function(SessionService, $location, $localStorage) {
+          if(!SessionService.isLogged()) $location.path('/login');
+        }]
       })
       .state('main.tables', {
-          url: '/tables',
-          templateUrl: 'templates/tables.html'
+        url: '/tables',
+        templateUrl: 'templates/tables.html'
       })
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        onEnter: ['SessionService', '$location', '$localStorage', function(SessionService, $location, $localStorage) {
+          if(SessionService.isLogged()) $location.path('/');
+        }]
       });
 }]);

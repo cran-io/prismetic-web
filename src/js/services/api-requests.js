@@ -1,6 +1,15 @@
 angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http, $q) {
   var apiUrl   = 'http://prismetic.cran.io:8080/api';
+  var url = "http://prismetic.cran.io:8080"
   var requests = {};
+
+  requests.login = function(userForm) {
+    return $http.post(url + "/signin", userForm);
+  }
+
+  requests.logout = function() {
+    return $http.get(url + "/logout");
+  }
 
   requests.getDevices =  function() {
     var deferred = $q.defer();
