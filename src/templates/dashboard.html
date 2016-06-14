@@ -53,11 +53,11 @@
           <div class="row top-margened">
             <div class="col-lg-2 col-md-6 col-xs-12 sensors" 
                  ng-repeat="(index, sensor) in sensors track by $index">
-              <div class="clickable" ng-click="selectSensor(sensor.index)">
+              <div>
                 <div class="col-xs-12 col-lg-12">
                   <div class="panel panel-default panel-prismetic panel-sm"
                        ng-class="{ 'active': sensor.selected }">
-                    <div class="panel-body">
+                    <div ng-click="selectSensor(sensor.index)" class="panel-body clickable">
                       <div class="sensor-content">
                         <div class="title">
                           {{ index + 1}}
@@ -78,7 +78,7 @@
                         </i>
                       </span>
                       <span> {{ sensor.active ? 'Activo' : 'No activo' }}&nbsp;&nbsp;
-                        <i ng-click="settingsModal(sensor)" class="fa fa-cog" aria-hidden="true"></i>
+                        <i ng-click="settingsModal(sensor)" class="clickable fa fa-cog" aria-hidden="true"></i>
                       </span>
                     </div>
                   </div>
@@ -232,7 +232,9 @@
 		      		<h4>Eliminar información del sensor</h4>
 		      	</div>
 			      <div class="col-sm-5">
-			      	<button class="btn btn-raised btn-danger" style="width: 120px;" ng-click="deleteQuestion()"><i class="fa fa-trash-o fa-2x"></i></button>
+			      	<button class="btn btn-raised btn-danger" style="width: 120px;" ng-click="deleteQuestion()">
+                <i class="fa fa-trash-o fa-2x"></i>
+              </button>
 			      </div>
 		      </div>
 		      <div ng-if="delete" class="row valign-wrapper">
@@ -240,7 +242,9 @@
 		      		<h4><strong>¿Estás seguro?</strong></h4>
 		      	</div>
 			      <div class="col-sm-5">
-			      	<button class="btn btn-raised btn-danger" ng-click="deleteSensorData(sensor)"><i class="fa">ELIMINAR</i></button>
+			      	<button class="btn btn-raised btn-danger" ng-click="deleteSensorData(sensor)">
+                <i class="fa">ELIMINAR</i>
+              </button>
 			      </div>
 		      </div>
 	    	</div>
