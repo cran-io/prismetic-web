@@ -1,5 +1,5 @@
 angular
-  .module('Prismetic', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io', 'xeditable', 'ngAnimate', 'ngStorage'])
+  .module('Prismetic', ['ui.bootstrap', 'ui.router', 'ngCookies', 'btford.socket-io', 'xeditable', 'ngAnimate', 'ngStorage', 'toggle-switch'])
   .factory('httpInterceptor', ['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
       return {
         responseError: function(response) {

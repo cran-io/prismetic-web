@@ -1,6 +1,6 @@
 angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http, $q) {
-  var apiUrl   = 'http://prismetic.cran.io:8080/api';
-  var url = "http://prismetic.cran.io:8080"
+  var apiUrl   = 'http://127.0.0.1:8080/api';
+  var url = "http://127.0.0.1:8080"
   var requests = {};
 
   requests.login = function(userForm) {
@@ -86,6 +86,14 @@ angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http
     };
 
   });
+
+  requests.updateSensor = function(deviceID, sensor) {
+    return $http.put(apiUrl + /devices/ + deviceID + "/sensors/" + sensor._id, {sensor: sensor})
+  }
+
+  requests.deleteSensorData = function(deviceID, sensorID) {
+    return $http.delete(apiUrl + "/devices/" + deviceID + "/sensors/" + sensorID + "/sensors_data")
+  }
 
   return requests;
 

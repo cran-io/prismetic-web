@@ -7,6 +7,7 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
   $scope.devices  = [];
   $scope.sensors  = [];
   $scope.enter    = 0;
+  $scope.delete;
   
   $scope.currentPeople = 0;
 
@@ -164,5 +165,38 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
     getDeviceData(deviceID, sensorID);
     $scope.period = null;
   };
+
+  $scope.settingsModal = function(sensor) {
+    $scope.sensor = sensor;
+    $scope.delete = false;
+    $("#settingsModal").modal();
+  }
+
+  $scope.updateSensor = function(sensor) {
+    apiRequest
+      .updateSensor(deviceID, sensor)
+      .then(function() {
+        $.notify("Sentido del sensor cambiado correctamente.", "success");
+      })
+      .catch(function(err) {
+        $.notify("Error al cambiar el sentido del sensor.", "error");
+      });
+  }
+
+  $scope.deleteQuestion = function() {
+    $scope.delete = true;
+  }
+
+  $scope.deleteSensorData = function(sensor) {
+    apiRequest
+      .deleteSensorData(deviceID, sensor._id)
+      .then(function() {
+        $.notify("Informacion del sensor eliminada correctamente.", "success");
+        getDeviceData(deviceID, sensor._id);
+      })
+      .catch(function() {
+        $.notify("Error al eliminar la informacion del sensor.", "error");
+      })
+  }
 
 }]);
