@@ -1,6 +1,6 @@
 angular.module('Prismetic').factory('apiRequest', ['$http', '$q', function($http, $q) {
-  var apiUrl   = 'http://127.0.0.1:8080/api';
-  var url = "http://127.0.0.1:8080"
+  var apiUrl   = 'http://prismetic.cran.io:8080/api';
+  var url = "http://prismetic.cran.io:8080"
   var requests = {};
 
   requests.login = function(userForm) {
