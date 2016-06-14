@@ -84,9 +84,9 @@ angular.module('Prismetic').controller('MasterCtrl', ['$scope', 'apiRequest', 'h
           return [new Date(dot.sentAt).getTime(), dot.count];
         });
         $scope.currentPeople = countData.length ? countData[countData.length - 1][1] : 0
-        avgData = response.data.average.map(function(dot) {
-          return [new Date(dot.sentAt).getTime(), dot.average];
-        });
+        // avgData = response.data.average.map(function(dot) {
+        //   return [new Date(dot.sentAt).getTime(), dot.average];
+        // });
         $scope.enter = response.metadata.enter;
         countChart = countData.length ? highCharts.lineChart('chart', countData) : highCharts.lineChart('chart', countData).showLoading('No hay datos disponibles.');
       });
