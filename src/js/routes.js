@@ -11,11 +11,9 @@ angular.module('Prismetic').config(['$stateProvider', '$urlRouterProvider', func
       .state('main.dashboard', {
         url: '/',
         templateUrl: 'templates/dashboard.html',
-        resolve: {
-          authResolve: function(SessionService) {
-            return SessionService.authResolve();
-          }
-        }
+        onEnter:  ['SessionService', '$location', '$localStorage', function(SessionService, $location, $localStorage) {
+          if(!SessionService.isLogged()) $location.path('/login');
+        }]
       })
       .state('main.tables', {
         url: '/tables',
